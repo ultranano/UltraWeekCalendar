@@ -31,8 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AEAA6C17E374C16123E53375C692F00 /* Pods_UltraWeekCalendar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UltraWeekCalendar_Tests.framework; path = "Pods-UltraWeekCalendar_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		122BC59AB7C85AAD79CAB7C7D5F41B82 /* Pods_UltraWeekCalendar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UltraWeekCalendar_Example.framework; path = "Pods-UltraWeekCalendar_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AEAA6C17E374C16123E53375C692F00 /* Pods_UltraWeekCalendar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraWeekCalendar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		122BC59AB7C85AAD79CAB7C7D5F41B82 /* Pods_UltraWeekCalendar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UltraWeekCalendar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE4880D3B8197183B44F302AC2DFB9B /* Pods-UltraWeekCalendar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UltraWeekCalendar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		2C94DF15A4F206CCAC3B3AF4FFEB884B /* Pods-UltraWeekCalendar_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UltraWeekCalendar_Example-resources.sh"; sourceTree = "<group>"; };
 		330E97ECFFC7A6C47CEFE15F8F40EBEB /* UltraWeekCalendar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UltraWeekCalendar-prefix.pch"; sourceTree = "<group>"; };
@@ -43,16 +43,16 @@
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		696493EB35819A2E558107A385BA35E1 /* Pods-UltraWeekCalendar_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UltraWeekCalendar_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6A9053F5F92B4B8AFA83C741C79CAFA8 /* Pods-UltraWeekCalendar_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UltraWeekCalendar_Tests-umbrella.h"; sourceTree = "<group>"; };
-		6FEA5ED0F614F99DD50ED996B6DFF51C /* UltraWeekCalendar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = UltraWeekCalendar.modulemap; sourceTree = "<group>"; };
+		6FEA5ED0F614F99DD50ED996B6DFF51C /* UltraWeekCalendar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = UltraWeekCalendar.modulemap; sourceTree = "<group>"; };
 		7CAD650BD369F3D0BFA69BE01A2485E1 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CECAA4EA2CDD7C5C37481840A7CD34B /* Pods-UltraWeekCalendar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UltraWeekCalendar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		92A7253D7AB2A9BB518919DFCC583D3C /* Pods-UltraWeekCalendar_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-UltraWeekCalendar_Tests.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		92A7253D7AB2A9BB518919DFCC583D3C /* Pods-UltraWeekCalendar_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-UltraWeekCalendar_Tests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		99632F351FE36E4B5EBE30BDE849FA87 /* UltraWeekCalendar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UltraWeekCalendar.xcconfig; sourceTree = "<group>"; };
 		99C4CA92CC05D21A55C98A73371C7DC6 /* UltraWeekCalendar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UltraWeekCalendar.m; sourceTree = "<group>"; };
 		A02BCC24FC52422EAB07B5BA1E071D98 /* Pods-UltraWeekCalendar_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UltraWeekCalendar_Example-frameworks.sh"; sourceTree = "<group>"; };
 		A3A76695FFD7D105C7E97F998F9F8660 /* UltraWeekCalendar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UltraWeekCalendar-umbrella.h"; sourceTree = "<group>"; };
-		A8357F52D6BA1907657FC3B55CEF193B /* UltraWeekCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UltraWeekCalendar.framework; path = UltraWeekCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8357F52D6BA1907657FC3B55CEF193B /* UltraWeekCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UltraWeekCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD25A9BB4E32EA0847031DE20C64616A /* Pods-UltraWeekCalendar_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UltraWeekCalendar_Tests-dummy.m"; sourceTree = "<group>"; };
 		B447038DF7FA1F8563BCD1AC0271673C /* Pods-UltraWeekCalendar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UltraWeekCalendar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B70C30E8A7DD8BB4C0515F07C5C45888 /* Pods-UltraWeekCalendar_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UltraWeekCalendar_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		CE3AEF1895214A6F7CA73D71F2861A8A /* Pods-UltraWeekCalendar_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UltraWeekCalendar_Example.release.xcconfig"; sourceTree = "<group>"; };
 		D19454FA36D5528A038B186F4A0C28B0 /* Pods-UltraWeekCalendar_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UltraWeekCalendar_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		D314C97F17325F6126D99CFED1E32CA4 /* Pods-UltraWeekCalendar_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UltraWeekCalendar_Tests-resources.sh"; sourceTree = "<group>"; };
-		E79A4100DC345858AC61C1CAE7C29B19 /* Pods-UltraWeekCalendar_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-UltraWeekCalendar_Example.modulemap"; sourceTree = "<group>"; };
+		E79A4100DC345858AC61C1CAE7C29B19 /* Pods-UltraWeekCalendar_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-UltraWeekCalendar_Example.modulemap"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,6 @@
 				BAF9920595423FF876C7A6F9C11AE1CF /* UltraWeekCalendar.h */,
 				99C4CA92CC05D21A55C98A73371C7DC6 /* UltraWeekCalendar.m */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -215,7 +214,6 @@
 			children = (
 				356F976EDED5A4AF4486E9B4D740551C /* Classes */,
 			);
-			name = UltraWeekCalendar;
 			path = UltraWeekCalendar;
 			sourceTree = "<group>";
 		};

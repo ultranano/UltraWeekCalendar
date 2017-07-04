@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, strong) UIColor *monthBGColor;
 @property (nonatomic, strong) UIColor *dayScrollBGColor;
+@property (nonatomic, assign) CGFloat lastContentOffset;
 
 @end

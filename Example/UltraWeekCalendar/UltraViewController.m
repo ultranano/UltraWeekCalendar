@@ -23,7 +23,7 @@
     NSDate *today = [[NSDate alloc] init];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    [offsetComponents setMonth:1];
+    [offsetComponents setMonth:6];
     NSDate *nextDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
     UltraWeekCalendar *calendar = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 55)];
