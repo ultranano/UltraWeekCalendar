@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'UltraWeekCalendar_Example' do
+  pod 'UltraWeekCalendar', :path => '../'
+
+  target 'UltraWeekCalendar_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
