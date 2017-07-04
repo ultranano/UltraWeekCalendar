@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'UltraWeekCalendar'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of UltraWeekCalendar.'
+  s.summary          = 'UltraWeekCalendar - Clean UI to select day throught weeks'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,15 +18,20 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar.
+The result of this it's UltraWeekCalendar is my first pods.
+
+Please Feel Free to contribute and give me any feedbacks!
+
+Swift Version coming soon...
                        DESC
 
-  s.homepage         = 'https://github.com/Andrea Baldon/UltraWeekCalendar'
+  s.homepage         = 'https://github.com/ultranano/UltraWeekCalendar'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Andrea Baldon' => 'ultranano@hotmail.com' }
-  s.source           = { :git => 'https://github.com/Andrea Baldon/UltraWeekCalendar.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => 'https://github.com/ultranano/UltraWeekCalendar.git', :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/ultranano'
 
   s.ios.deployment_target = '8.0'
 

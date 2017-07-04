@@ -1,0 +1,16 @@
+PODS:
+  - UltraWeekCalendar (0.1.0)
+
+DEPENDENCIES:
+  - UltraWeekCalendar (from `../`)
+
+EXTERNAL SOURCES:
+  UltraWeekCalendar:
+    :path: ../
+
+SPEC CHECKSUMS:
+  UltraWeekCalendar: 74b5fc518482a8910a94ed93ea4d6162180e5445
+
+PODFILE CHECKSUM: 7d0b1f71bc7136fc1a89c15c308026f905a6eabf
+
+COCOAPODS: 1.2.1

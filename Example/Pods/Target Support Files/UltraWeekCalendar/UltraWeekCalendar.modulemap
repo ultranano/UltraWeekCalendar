@@ -1,0 +1,6 @@
+framework module UltraWeekCalendar {
+  umbrella header "UltraWeekCalendar-umbrella.h"
+
+  export *
+  module * { export * }
+}

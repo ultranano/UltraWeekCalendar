@@ -7,6 +7,7 @@
 //
 
 #import "UltraViewController.h"
+#import "UltraWeekCalendar.h"
 
 @interface UltraViewController ()
 
@@ -18,6 +19,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSDate *today = [[NSDate alloc] init];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setMonth:1];
+    NSDate *nextDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+    
+    UltraWeekCalendar *calendar = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 55)];
+    calendar.backgroundColor = UIColorFromRGB(0xCCCCCC);
+    calendar.monthBGColor = UIColorFromRGB(0x7baecb);
+    calendar.dayScrollBGColor = UIColorFromRGB(0xFFFFFF);
+    calendar.startDate = today;
+    calendar.endDate = nextDate;
+    [self.view addSubview:calendar];
 }
 
 - (void)didReceiveMemoryWarning
