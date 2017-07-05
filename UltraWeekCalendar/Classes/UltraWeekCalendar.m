@@ -16,6 +16,7 @@ NSDateFormatter *dateFormatter;
 UIView *contentView;
 UIView *monthView;
 UIView *dayContentView;
+UIButton *dayBtn;
 UILabel *fixedMonthLabel;
 NSMutableArray *breakPointMonths;
 NSMutableArray *breakPointMonthsName;
@@ -34,6 +35,10 @@ int monthNumber;
     self = [super initWithFrame:frame];
     if (self) {
         [self setFrame:frame];
+        
+        gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        
         breakPointMonths = [[NSMutableArray alloc] init];
         breakPointMonthsName = [[NSMutableArray alloc] init];
     }
@@ -45,13 +50,13 @@ int monthNumber;
 
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:contentView];
     
     monthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [contentView addSubview:monthView];
     
-    dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
     dateFormatter.dateFormat=@"MMM";
     NSString *monthString = [[dateFormatter stringFromDate:self.startDate] uppercaseString];
@@ -73,8 +78,6 @@ int monthNumber;
     
     [breakPointMonthsName addObject:monthString];
     
-    gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
     dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width, 0, self.frame.size.width-fixedMonthLabel.frame.size.width, contentView.frame.size.height)];
     [dayScrollView setDelegate:self];
     [dayScrollView setShowsHorizontalScrollIndicator:FALSE];
@@ -94,7 +97,6 @@ int monthNumber;
     
     for (int i=0; i<[components day]; i++) {
         
-        gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setDay:i];
         
@@ -119,7 +121,6 @@ int monthNumber;
 
 - (void)renderMonth:(int)index
 {
-    dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat=@"MMM";
     NSString *currentMonthString = [[dateFormatter stringFromDate:printedDate] uppercaseString];
     
@@ -151,7 +152,6 @@ int monthNumber;
     dayContentView = [[UIView alloc] initWithFrame:CGRectMake(index*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
     [dayScrollView addSubview:dayContentView];
     
-    dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"eee"];
     NSString *dayNameString = [dateFormatter stringFromDate:printedDate];
     
@@ -169,7 +169,6 @@ int monthNumber;
     [dayNameLbl setText:[dayNameString capitalizedString]];
     [dayContentView addSubview:dayNameLbl];
     
-    dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd"];
     NSString *dayString = [dateFormatter stringFromDate:printedDate];
     
@@ -179,6 +178,25 @@ int monthNumber;
     [numberLbl setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
     [numberLbl setText:dayString];
     [dayContentView addSubview:numberLbl];
+    
+    dayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, dayContentView.frame.size.width, dayContentView.frame.size.height)];
+    dayBtn.tag = index+1000;
+    [dayBtn addTarget:self action:@selector(selectedDay:) forControlEvents:UIControlEventTouchUpInside];
+    [dayContentView addSubview:dayBtn];
+}
+
+#pragma mark - selected Day
+
+- (void)selectedDay:(id)sender
+{
+    int dayOffset = (int)[sender tag]-1000;
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setDay:dayOffset];
+    printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
+    dateFormatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ssZ";
+    NSString *selectedDay = [dateFormatter stringFromDate:printedDate];
+    
+    NSLog(@"selectedDay %@", selectedDay);
 }
 
 #pragma mark - UIScrollView delegates
