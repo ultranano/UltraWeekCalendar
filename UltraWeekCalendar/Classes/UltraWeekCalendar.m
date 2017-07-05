@@ -34,6 +34,8 @@
     @private int selectedDay;
 }
 
+@synthesize delegate;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -72,14 +74,16 @@
     NSLog(@"self.endDate: %@", self.endDate);
     NSLog(@"monthString: %@", monthString);
     
-    fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
+    int fixedMonthLabelWidth = 45;
+    
+    fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fixedMonthLabelWidth, contentView.frame.size.height)];
     fixedMonthLabel.text = monthString;
     fixedMonthLabel.textAlignment = NSTextAlignmentCenter;
     [fixedMonthLabel setBackgroundColor:self.monthBGColor];
     [fixedMonthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
     [fixedMonthLabel setTextColor:self.monthTextColor];
     [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
-    [fixedMonthLabel setFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
+    [fixedMonthLabel setFrame:CGRectMake(0, 0, fixedMonthLabelWidth, contentView.frame.size.height)];
     [monthView addSubview:fixedMonthLabel];
     
     [breakPointMonthsName addObject:monthString];
@@ -214,6 +218,9 @@
     [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
     
     selectedDay = dayOffset+1000;
+    self.selectedDate = printedDate;
+    
+    [delegate dateButtonClicked];
     
     NSLog(@"selectedDay %@", selectedDayStr);
 }

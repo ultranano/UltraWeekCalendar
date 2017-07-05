@@ -8,6 +8,8 @@
 
 @import UIKit;
 
-@interface UltraViewController : UIViewController
+#import "UltraWeekCalendar.h"
+
+@interface UltraViewController : UIViewController <UltraWeekCalendarDelegate>
 
 @end
