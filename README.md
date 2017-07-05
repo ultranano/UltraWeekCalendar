@@ -1,6 +1,6 @@
 # UltraWeekCalendar
 
-[![CI Status](http://img.shields.io/travis/Andrea Baldon/UltraWeekCalendar.svg?style=flat)](https://travis-ci.org/Andrea Baldon/UltraWeekCalendar)
+[![CI Status](http://img.shields.io/travis/ultranano/UltraWeekCalendar.svg?style=flat)](https://travis-ci.org/ultranano/UltraWeekCalendar)
 [![Version](https://img.shields.io/cocoapods/v/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 [![License](https://img.shields.io/cocoapods/l/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 [![Platform](https://img.shields.io/cocoapods/p/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
