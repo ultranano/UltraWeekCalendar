@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIColor *monthTextColor;
 @property (nonatomic, strong) UIColor *monthBGColor;
 @property (nonatomic, strong) UIColor *dayScrollBGColor;
+@property (nonatomic, strong) UIColor *dayNumberSelectedTextColor;
+@property (nonatomic, strong) UIColor *dayNameSelectedTextColor;
 @property (nonatomic, strong) UIColor *daySelectedBGColor;
 
 @end

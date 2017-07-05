@@ -9,26 +9,30 @@
 #import "UltraWeekCalendar.h"
 
 @implementation UltraWeekCalendar
-
-NSCalendar *gregorianCalendar;
-NSDateComponents *components;
-NSDateFormatter *dateFormatter;
-UIView *contentView;
-UIView *monthView;
-UIView *dayContentView;
-UIButton *dayBtn;
-UILabel *fixedMonthLabel;
-NSMutableArray *breakPointMonths;
-NSMutableArray *breakPointMonthsName;
-UIScrollView *dayScrollView;
-NSDate *printedDate;
-
-int monthContentWidth;
-int dayContentWidth;
-int currentMonth;
-int previousMonth;
-int monthNamePosition;
-int monthNumber;
+{
+    @private NSCalendar *gregorianCalendar;
+    @private NSDateComponents *components;
+    @private NSDateFormatter *dateFormatter;
+    @private UIView *contentView;
+    @private UIView *monthView;
+    @private UIView *dayContentView;
+    @private UIButton *dayBtn;
+    @private UILabel *fixedMonthLabel;
+    @private NSMutableArray *breakPointMonths;
+    @private NSMutableArray *breakPointMonthsName;
+    @private UIScrollView *dayScrollView;
+    @private UILabel *dayNameLbl;
+    @private UILabel *dayNumberLbl;
+    @private NSDate *printedDate;
+    
+    @private int monthContentWidth;
+    @private int dayContentWidth;
+    @private int currentMonth;
+    @private int previousMonth;
+    @private int monthNamePosition;
+    @private int monthNumber;
+    @private int selectedDay;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -41,6 +45,8 @@ int monthNumber;
         
         breakPointMonths = [[NSMutableArray alloc] init];
         breakPointMonthsName = [[NSMutableArray alloc] init];
+        
+        selectedDay = 1000;
     }
     return self;
 }
@@ -147,15 +153,17 @@ int monthNumber;
 
 #pragma mark - render Day
 
-- (void)renderDay:(int)index withDate:(NSDate*)printedDate
+- (void)renderDay:(int)index withDate:(NSDate*)currentDate
 {
     dayContentView = [[UIView alloc] initWithFrame:CGRectMake(index*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
+    dayContentView.tag = index+1000;
     [dayScrollView addSubview:dayContentView];
     
     [dateFormatter setDateFormat:@"eee"];
-    NSString *dayNameString = [dateFormatter stringFromDate:printedDate];
+    NSString *dayNameString = [dateFormatter stringFromDate:currentDate];
     
-    UILabel *dayNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
+    dayNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
+    dayNameLbl.tag = index+2000;
     [dayNameLbl setTextAlignment:NSTextAlignmentCenter];
     [dayNameLbl setTextColor:self.dayNameTextColor];
     
@@ -170,17 +178,18 @@ int monthNumber;
     [dayContentView addSubview:dayNameLbl];
     
     [dateFormatter setDateFormat:@"dd"];
-    NSString *dayString = [dateFormatter stringFromDate:printedDate];
+    NSString *dayString = [dateFormatter stringFromDate:currentDate];
     
-    UILabel *numberLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, dayContentView.frame.size.height/2, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
-    [numberLbl setTextAlignment:NSTextAlignmentCenter];
-    [numberLbl setTextColor:self.dayNumberTextColor];
-    [numberLbl setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
-    [numberLbl setText:dayString];
-    [dayContentView addSubview:numberLbl];
+    dayNumberLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, dayContentView.frame.size.height/2, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
+    dayNumberLbl.tag = index+3000;
+    [dayNumberLbl setTextAlignment:NSTextAlignmentCenter];
+    [dayNumberLbl setTextColor:self.dayNumberTextColor];
+    [dayNumberLbl setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
+    [dayNumberLbl setText:dayString];
+    [dayContentView addSubview:dayNumberLbl];
     
     dayBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, dayContentView.frame.size.width, dayContentView.frame.size.height)];
-    dayBtn.tag = index+1000;
+    dayBtn.tag = index+4000;
     [dayBtn addTarget:self action:@selector(selectedDay:) forControlEvents:UIControlEventTouchUpInside];
     [dayContentView addSubview:dayBtn];
 }
@@ -189,14 +198,24 @@ int monthNumber;
 
 - (void)selectedDay:(id)sender
 {
-    int dayOffset = (int)[sender tag]-1000;
+    int dayOffset = (int)[sender tag]-4000;
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     [offsetComponents setDay:dayOffset];
     printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
     dateFormatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ssZ";
-    NSString *selectedDay = [dateFormatter stringFromDate:printedDate];
+    NSString *selectedDayStr = [dateFormatter stringFromDate:printedDate];
     
-    NSLog(@"selectedDay %@", selectedDay);
+    [[self viewWithTag:selectedDay] setBackgroundColor:[UIColor clearColor]];
+    [[self viewWithTag:selectedDay+1000] setTextColor:self.dayNameTextColor];
+    [[self viewWithTag:selectedDay+2000] setTextColor:self.dayNumberTextColor];
+    
+    [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
+    [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
+    [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
+    
+    selectedDay = dayOffset+1000;
+    
+    NSLog(@"selectedDay %@", selectedDayStr);
 }
 
 #pragma mark - UIScrollView delegates

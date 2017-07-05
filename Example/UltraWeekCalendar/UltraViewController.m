@@ -32,8 +32,10 @@
     calendar.monthBGColor = UIColorFromRGB(0x7baecb);
     calendar.dayNameTextColor = UIColorFromRGB(0x626262);
     calendar.dayNumberTextColor = UIColorFromRGB(0x232323);
-    calendar.daySelectedBGColor = [UIColor redColor];
     calendar.dayScrollBGColor = UIColorFromRGB(0xFFFFFF);
+    calendar.dayNameSelectedTextColor = UIColorFromRGB(0xFFFFFF);
+    calendar.dayNumberSelectedTextColor = UIColorFromRGB(0xFFFFFF);
+    calendar.daySelectedBGColor = UIColorFromRGB(0x7baecb);
     calendar.startDate = today;
     calendar.endDate = nextDate;
     [self.view addSubview:calendar];
