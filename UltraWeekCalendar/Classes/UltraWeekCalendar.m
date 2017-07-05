@@ -17,6 +17,8 @@ UIView *monthView;
 UIView *dayContentView;
 UILabel *fixedMonthLabel;
 NSMutableArray *breakPointMonths;
+NSMutableArray *breakPointMonthsName;
+int dayContentWidth;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,6 +26,7 @@ NSMutableArray *breakPointMonths;
     if (self) {
         [self setFrame:frame];
         breakPointMonths = [[NSMutableArray alloc] init];
+        breakPointMonthsName = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -49,44 +52,29 @@ NSMutableArray *breakPointMonths;
     NSString *monthString = [[dateFormatter stringFromDate:self.startDate] uppercaseString];
     NSLog(@"monthString: %@", monthString);
     
+    fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
+    fixedMonthLabel.text = monthString;
+    fixedMonthLabel.textAlignment = NSTextAlignmentCenter;
+    [fixedMonthLabel setBackgroundColor:self.monthBGColor];
+    [fixedMonthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
+    [fixedMonthLabel setTextColor:UIColorFromRGB(0xFFFFFF)];
+    [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
+    [fixedMonthLabel setFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
+    [monthView addSubview:fixedMonthLabel];
+    
+    [breakPointMonthsName addObject:monthString];
+    
     gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    components = [gregorianCalendar components:NSCalendarUnitMonth
-                                                        fromDate:self.startDate
-                                                          toDate:self.endDate
-                                                         options:0];
-    
-    for (int i=0; i<[components month]; i++) {
-        
-        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-        [offsetComponents setMonth:i];
-        NSDate *printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat=@"MMM";
-        NSString *monthString = [[dateFormatter stringFromDate:printedDate] uppercaseString];
-        
-        fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(i*45, 0, 45, contentView.frame.size.height)];
-        fixedMonthLabel.text = monthString;
-        fixedMonthLabel.textAlignment = NSTextAlignmentCenter;
-        [fixedMonthLabel setBackgroundColor:self.monthBGColor];
-        [fixedMonthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
-        [fixedMonthLabel setTextColor:UIColorFromRGB(0xFFFFFF)];
-        [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
-        [fixedMonthLabel setFrame:CGRectMake(i*45, 0, 45, contentView.frame.size.height)];
-        [monthView addSubview:fixedMonthLabel];
-    }
-    
-    [monthView setFrame:CGRectMake(0, 0, 45*[components month], self.frame.size.height)];
     
     UIScrollView *dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width, 0, self.frame.size.width-fixedMonthLabel.frame.size.width, contentView.frame.size.height)];
     [dayScrollView setDelegate:self];
-    //[dayScrollView setDecelerationRate:UIScrollViewDecelerationRateFast];
     [dayScrollView setShowsHorizontalScrollIndicator:FALSE];
     [dayScrollView setShowsVerticalScrollIndicator:FALSE];
     [dayScrollView setBackgroundColor:self.dayScrollBGColor];
     [contentView addSubview:dayScrollView];
     
     int monthContentWidth = fixedMonthLabel.frame.size.width;
-    int dayContentWidth = (dayScrollView.frame.size.width/7)+3;
+    dayContentWidth = (dayScrollView.frame.size.width/7)+3;
     int previousMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:self.startDate] month];
     int monthNumber = 0;
     
@@ -110,14 +98,16 @@ NSMutableArray *breakPointMonths;
             [self renderDay:printedDate];
         } else {
             
-            int monthNamePosition = i*dayContentWidth+(monthNumber*monthContentWidth);
-            [breakPointMonths addObject:[NSNumber numberWithInt:monthNamePosition]];
-            
-            NSLog(@"breakPointMonths = %d", [[breakPointMonths lastObject] intValue]);
-            
             dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat=@"MMM";
             NSString *currentMonthString = [[dateFormatter stringFromDate:printedDate] uppercaseString];
+            
+            int monthNamePosition = i*dayContentWidth+(monthNumber*monthContentWidth);
+            [breakPointMonths addObject:[NSNumber numberWithInt:monthNamePosition]];
+            [breakPointMonthsName addObject:currentMonthString];
+            
+            NSLog(@"breakPointMonths = %d", [[breakPointMonths lastObject] intValue]);
+            NSLog(@"breakPointMonthsName = %@", [breakPointMonthsName lastObject]);
             
             UILabel *monthLabel = [[UILabel alloc] initWithFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
             monthLabel.text = currentMonthString;
@@ -177,24 +167,12 @@ NSMutableArray *breakPointMonths;
 #pragma mark - UIScrollView delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%d", (int)scrollView.contentOffset.x);
-    
     for (int i=0; i<[breakPointMonths count]; i++) {
-        if (scrollView.contentOffset.x >= [[breakPointMonths objectAtIndex:i] intValue] && scrollView.contentOffset.x <= [[breakPointMonths objectAtIndex:i] intValue]+45) {
-            
-            if (self.lastContentOffset > scrollView.contentOffset.x) {
-                NSLog(@"move month forward %f", +(scrollView.contentOffset.x-[[breakPointMonths objectAtIndex:i] intValue]+(i*45)));
-                [monthView setFrame:CGRectMake(+(scrollView.contentOffset.x-[[breakPointMonths objectAtIndex:i] intValue]+(i*45)), monthView.frame.origin.y, monthView.frame.size.width, monthView.frame.size.height)];
-            } else if (self.lastContentOffset < scrollView.contentOffset.x) {
-                NSLog(@"move month backward %f", -(scrollView.contentOffset.x-[[breakPointMonths objectAtIndex:i] intValue]+(i*45)));
-                [monthView setFrame:CGRectMake(-(scrollView.contentOffset.x-[[breakPointMonths objectAtIndex:i] intValue]+(i*45)), monthView.frame.origin.y, monthView.frame.size.width, monthView.frame.size.height)];
-            }
-            
+        if (scrollView.contentOffset.x <= [[breakPointMonths objectAtIndex:i] intValue]) {
+            [fixedMonthLabel setText:[breakPointMonthsName objectAtIndex:i]];
             break;
         }
     }
-    
-    self.lastContentOffset = scrollView.contentOffset.x;
 }
 
 @end
