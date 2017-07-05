@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UltraWeekCalendar'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'UltraWeekCalendar - Clean UI to select day through weeks'
 
 # This description is used to generate tags and improve search results.
@@ -17,16 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar.
-The result of this it's UltraWeekCalendar!
-This is my first pods.
-
-Please feel Free to contribute and give me any feedbacks!
-
-Swift Version coming soon...
-                       DESC
-
+  s.description      = <<-DESC I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar. The result of this it's UltraWeekCalendar! This is my first pods. Please feel Free to contribute and give me any feedbacks! DESC
   s.homepage         = 'https://github.com/ultranano/UltraWeekCalendar'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -34,6 +25,7 @@ Swift Version coming soon...
   s.source           = { :git => 'https://github.com/ultranano/UltraWeekCalendar.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/ultranano'
 
+  s.platform = :ios
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'UltraWeekCalendar/Classes/**/*'

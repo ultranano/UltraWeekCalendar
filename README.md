@@ -1,6 +1,6 @@
 # UltraWeekCalendar
 
-[![CI Status](http://img.shields.io/travis/ultranano/UltraWeekCalendar.svg?style=flat)](https://travis-ci.org/ultranano/UltraWeekCalendar)
+[![Compatibility](https://img.shields.io/badge/Swift-compatible-brightgreen.svg)](https://travis-ci.org/ultranano/UltraWeekCalendar)
 [![Version](https://img.shields.io/cocoapods/v/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 [![License](https://img.shields.io/cocoapods/l/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 [![Platform](https://img.shields.io/cocoapods/p/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
@@ -10,6 +10,9 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+- iOS 8.0+
+- Xcode 8+
 
 ## Installation
 
