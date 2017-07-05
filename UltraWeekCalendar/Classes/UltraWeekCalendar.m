@@ -13,12 +13,21 @@
 NSCalendar *gregorianCalendar;
 NSDateComponents *components;
 NSDateFormatter *dateFormatter;
+UIView *contentView;
 UIView *monthView;
 UIView *dayContentView;
 UILabel *fixedMonthLabel;
 NSMutableArray *breakPointMonths;
 NSMutableArray *breakPointMonthsName;
+UIScrollView *dayScrollView;
+NSDate *printedDate;
+
+int monthContentWidth;
 int dayContentWidth;
+int currentMonth;
+int previousMonth;
+int monthNamePosition;
+int monthNumber;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -36,20 +45,20 @@ int dayContentWidth;
 
 - (void)drawRect:(CGRect)rect {
     // Drawing code
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self addSubview:contentView];
     
     monthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [contentView addSubview:monthView];
     
-    NSLog(@"self.startDate: %@", self.startDate);
-    NSLog(@"self.endDate: %@", self.endDate);
-    
     dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
-    NSLog(@"dateFormatter.locale : %@", dateFormatter.locale);
     dateFormatter.dateFormat=@"MMM";
     NSString *monthString = [[dateFormatter stringFromDate:self.startDate] uppercaseString];
+    
+    NSLog(@"dateFormatter.locale : %@", dateFormatter.locale);
+    NSLog(@"self.startDate: %@", self.startDate);
+    NSLog(@"self.endDate: %@", self.endDate);
     NSLog(@"monthString: %@", monthString);
     
     fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
@@ -57,7 +66,7 @@ int dayContentWidth;
     fixedMonthLabel.textAlignment = NSTextAlignmentCenter;
     [fixedMonthLabel setBackgroundColor:self.monthBGColor];
     [fixedMonthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
-    [fixedMonthLabel setTextColor:UIColorFromRGB(0xFFFFFF)];
+    [fixedMonthLabel setTextColor:self.monthTextColor];
     [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [fixedMonthLabel setFrame:CGRectMake(0, 0, 45, contentView.frame.size.height)];
     [monthView addSubview:fixedMonthLabel];
@@ -66,17 +75,17 @@ int dayContentWidth;
     
     gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
-    UIScrollView *dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width, 0, self.frame.size.width-fixedMonthLabel.frame.size.width, contentView.frame.size.height)];
+    dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width, 0, self.frame.size.width-fixedMonthLabel.frame.size.width, contentView.frame.size.height)];
     [dayScrollView setDelegate:self];
     [dayScrollView setShowsHorizontalScrollIndicator:FALSE];
     [dayScrollView setShowsVerticalScrollIndicator:FALSE];
     [dayScrollView setBackgroundColor:self.dayScrollBGColor];
     [contentView addSubview:dayScrollView];
     
-    int monthContentWidth = fixedMonthLabel.frame.size.width;
+    monthContentWidth = fixedMonthLabel.frame.size.width;
     dayContentWidth = (dayScrollView.frame.size.width/7)+3;
-    int previousMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:self.startDate] month];
-    int monthNumber = 0;
+    previousMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:self.startDate] month];
+    monthNumber = 0;
     
     components = [gregorianCalendar components:NSCalendarUnitDay
                                       fromDate:self.startDate
@@ -88,43 +97,17 @@ int dayContentWidth;
         gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         [offsetComponents setDay:i];
-        NSDate *printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
         
-        int currentMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:printedDate] month];
+        printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
+        currentMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:printedDate] month];
         
         if (previousMonth == currentMonth) {
-            dayContentView = [[UIView alloc] initWithFrame:CGRectMake(i*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
-            [dayScrollView addSubview:dayContentView];
-            [self renderDay:printedDate];
+            //Print only day
+            [self renderDay:i withDate:printedDate];
         } else {
-            
-            dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateFormat=@"MMM";
-            NSString *currentMonthString = [[dateFormatter stringFromDate:printedDate] uppercaseString];
-            
-            int monthNamePosition = i*dayContentWidth+(monthNumber*monthContentWidth);
-            [breakPointMonths addObject:[NSNumber numberWithInt:monthNamePosition]];
-            [breakPointMonthsName addObject:currentMonthString];
-            
-            NSLog(@"breakPointMonths = %d", [[breakPointMonths lastObject] intValue]);
-            NSLog(@"breakPointMonthsName = %@", [breakPointMonthsName lastObject]);
-            
-            UILabel *monthLabel = [[UILabel alloc] initWithFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
-            monthLabel.text = currentMonthString;
-            monthLabel.textAlignment = NSTextAlignmentCenter;
-            [monthLabel setBackgroundColor:self.monthBGColor];
-            [monthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
-            [monthLabel setTextColor:UIColorFromRGB(0xFFFFFF)];
-            [monthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
-            [monthLabel setFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
-            [dayScrollView addSubview:monthLabel];
-            
-            previousMonth = currentMonth;
-            monthNumber++;
-            
-            dayContentView = [[UIView alloc] initWithFrame:CGRectMake(i*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
-            [dayScrollView addSubview:dayContentView];
-            [self renderDay:printedDate];
+            //Print Month + first day
+            [self renderMonth:i];
+            [self renderDay:i withDate:printedDate];
         }
         
     }
@@ -132,18 +115,52 @@ int dayContentWidth;
     [dayScrollView setContentSize:CGSizeMake((dayContentWidth * [components day]) + (monthContentWidth * monthNumber), contentView.frame.size.height)];
 }
 
-- (void)renderDay:(NSDate*)printedDate
+#pragma mark - render Month
+
+- (void)renderMonth:(int)index
 {
+    dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat=@"MMM";
+    NSString *currentMonthString = [[dateFormatter stringFromDate:printedDate] uppercaseString];
+    
+    monthNamePosition = index*dayContentWidth+(monthNumber*monthContentWidth);
+    [breakPointMonths addObject:[NSNumber numberWithInt:monthNamePosition]];
+    [breakPointMonthsName addObject:currentMonthString];
+    
+    NSLog(@"breakPointMonths = %d", [[breakPointMonths lastObject] intValue]);
+    NSLog(@"breakPointMonthsName = %@", [breakPointMonthsName lastObject]);
+    
+    UILabel *monthLabel = [[UILabel alloc] initWithFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
+    monthLabel.text = currentMonthString;
+    monthLabel.textAlignment = NSTextAlignmentCenter;
+    [monthLabel setBackgroundColor:self.monthBGColor];
+    [monthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
+    [monthLabel setTextColor:self.monthTextColor];
+    [monthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
+    [monthLabel setFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
+    [dayScrollView addSubview:monthLabel];
+    
+    previousMonth = currentMonth;
+    monthNumber++;
+}
+
+#pragma mark - render Day
+
+- (void)renderDay:(int)index withDate:(NSDate*)printedDate
+{
+    dayContentView = [[UIView alloc] initWithFrame:CGRectMake(index*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
+    [dayScrollView addSubview:dayContentView];
+    
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"eee"];
     NSString *dayNameString = [dateFormatter stringFromDate:printedDate];
     
     UILabel *dayNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
     [dayNameLbl setTextAlignment:NSTextAlignmentCenter];
-    [dayNameLbl setTextColor:UIColorFromRGB(0x626262)];
+    [dayNameLbl setTextColor:self.dayNameTextColor];
     
     int yourDOW = (int)[[gregorianCalendar components:NSCalendarUnitWeekday fromDate:printedDate] weekday];
-    //different colors for weekend names
+    //different style for weekend names
     if (yourDOW==1 || yourDOW==7) {
         [dayNameLbl setFont:[UIFont fontWithName:@"Avenir-Heavy" size:13]];
     } else {
@@ -158,7 +175,7 @@ int dayContentWidth;
     
     UILabel *numberLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, dayContentView.frame.size.height/2, dayContentView.frame.size.width, dayContentView.frame.size.height/2)];
     [numberLbl setTextAlignment:NSTextAlignmentCenter];
-    [numberLbl setTextColor:UIColorFromRGB(0x232323)];
+    [numberLbl setTextColor:self.dayNumberTextColor];
     [numberLbl setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
     [numberLbl setText:dayString];
     [dayContentView addSubview:numberLbl];

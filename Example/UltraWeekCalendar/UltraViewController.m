@@ -28,7 +28,11 @@
     
     UltraWeekCalendar *calendar = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 55)];
     calendar.backgroundColor = UIColorFromRGB(0xCCCCCC);
+    calendar.monthTextColor = UIColorFromRGB(0xFFFFFF);
     calendar.monthBGColor = UIColorFromRGB(0x7baecb);
+    calendar.dayNameTextColor = UIColorFromRGB(0x626262);
+    calendar.dayNumberTextColor = UIColorFromRGB(0x232323);
+    calendar.daySelectedBGColor = [UIColor redColor];
     calendar.dayScrollBGColor = UIColorFromRGB(0xFFFFFF);
     calendar.startDate = today;
     calendar.endDate = nextDate;

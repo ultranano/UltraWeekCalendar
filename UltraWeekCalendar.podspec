@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'UltraWeekCalendar'
   s.version          = '0.1.0'
-  s.summary          = 'UltraWeekCalendar - Clean UI to select day throught weeks'
+  s.summary          = 'UltraWeekCalendar - Clean UI to select day through weeks'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -19,9 +19,10 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
 I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar.
-The result of this it's UltraWeekCalendar is my first pods.
+The result of this it's UltraWeekCalendar!
+This is my first pods.
 
-Please Feel Free to contribute and give me any feedbacks!
+Please feel Free to contribute and give me any feedbacks!
 
 Swift Version coming soon...
                        DESC

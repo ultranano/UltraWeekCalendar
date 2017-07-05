@@ -11,10 +11,16 @@
 
 @interface UltraWeekCalendar : UIView <UIScrollViewDelegate>
 
+//Params
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+
+//Style
+@property (nonatomic, strong) UIColor *dayNumberTextColor;
+@property (nonatomic, strong) UIColor *dayNameTextColor;
+@property (nonatomic, strong) UIColor *monthTextColor;
 @property (nonatomic, strong) UIColor *monthBGColor;
 @property (nonatomic, strong) UIColor *dayScrollBGColor;
-@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, strong) UIColor *daySelectedBGColor;
 
 @end
