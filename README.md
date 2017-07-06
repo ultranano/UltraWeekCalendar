@@ -33,7 +33,7 @@ after that init the calendar with a start date and an end date
 
 ```ruby
 //First Basic Example with English Language
-calendar = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, labelTest.frame.origin.y+labelTest.frame.size.height+10, self.view.frame.size.width, 55)];
+calendar = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
 calendar.delegate = self;
 calendar.startDate = today;
 calendar.endDate = nextDate;
