@@ -26,6 +26,7 @@
 
 //Optional Params
 @property (nonatomic, strong) NSLocale *languageLocale;
+@property (readwrite, assign) int fixedMonthLabelWidth;
 
 //UI Style
 @property (nonatomic, strong) UIColor *dayNumberTextColor;

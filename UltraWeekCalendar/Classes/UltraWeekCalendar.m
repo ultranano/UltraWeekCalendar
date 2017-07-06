@@ -58,8 +58,15 @@
 
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    
+    if (self.fixedMonthLabelWidth==0) {
+        self.fixedMonthLabelWidth = 45;
+    }
 
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:contentView];
     
     monthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
@@ -78,21 +85,20 @@
     NSLog(@"self.endDate: %@", self.endDate);
     NSLog(@"monthString: %@", monthString);
     
-    int fixedMonthLabelWidth = 45;
-    
-    fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, fixedMonthLabelWidth, contentView.frame.size.height)];
+    fixedMonthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.fixedMonthLabelWidth, contentView.frame.size.height)];
     fixedMonthLabel.text = monthString;
     fixedMonthLabel.textAlignment = NSTextAlignmentCenter;
     [fixedMonthLabel setBackgroundColor:self.monthBGColor];
     [fixedMonthLabel setFont:[UIFont fontWithName:@"Avenir-Medium" size:15]];
     [fixedMonthLabel setTextColor:self.monthTextColor];
     [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
-    [fixedMonthLabel setFrame:CGRectMake(0, 0, fixedMonthLabelWidth, contentView.frame.size.height)];
+    [fixedMonthLabel setFrame:CGRectMake(0, 0, self.fixedMonthLabelWidth, contentView.frame.size.height)];
     [monthView addSubview:fixedMonthLabel];
     
     [breakPointMonthsName addObject:monthString];
     
-    dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width, 0, self.frame.size.width-fixedMonthLabel.frame.size.width, contentView.frame.size.height)];
+    dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width+1, 0, self.frame.size.width-fixedMonthLabel.frame.size.width-1, contentView.frame.size.height)];
+    [dayScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [dayScrollView setDelegate:self];
     [dayScrollView setShowsHorizontalScrollIndicator:FALSE];
     [dayScrollView setShowsVerticalScrollIndicator:FALSE];
