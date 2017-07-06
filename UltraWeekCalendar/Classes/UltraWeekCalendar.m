@@ -65,7 +65,11 @@
     monthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [contentView addSubview:monthView];
     
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
+    if (self.languageLocale == nil) {
+        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
+    } else {
+        dateFormatter.locale = self.languageLocale;
+    }
     dateFormatter.dateFormat=@"MMM";
     NSString *monthString = [[dateFormatter stringFromDate:self.startDate] uppercaseString];
     

@@ -24,7 +24,10 @@
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 
-//Style
+//Optional Params
+@property (nonatomic, strong) NSLocale *languageLocale;
+
+//UI Style
 @property (nonatomic, strong) UIColor *dayNumberTextColor;
 @property (nonatomic, strong) UIColor *dayNameTextColor;
 @property (nonatomic, strong) UIColor *monthTextColor;
@@ -34,7 +37,7 @@
 @property (nonatomic, strong) UIColor *dayNameSelectedTextColor;
 @property (nonatomic, strong) UIColor *daySelectedBGColor;
 
-//Values
+//Delegate Values
 @property (atomic, strong) NSDate *selectedDate;
 
 @end
