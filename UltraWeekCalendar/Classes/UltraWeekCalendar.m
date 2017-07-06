@@ -61,10 +61,9 @@
     
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     
-    if (self.fixedMonthLabelWidth==0) {
-        self.fixedMonthLabelWidth = 45;
-    }
-
+    //Set calendar default values
+    [self setCalendarDefaultValues];
+    
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [self addSubview:contentView];
@@ -72,11 +71,6 @@
     monthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [contentView addSubview:monthView];
     
-    if (self.languageLocale == nil) {
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]];
-    } else {
-        dateFormatter.locale = self.languageLocale;
-    }
     dateFormatter.dateFormat=@"MMM";
     NSString *monthString = [[dateFormatter stringFromDate:self.startDate] uppercaseString];
     
@@ -135,6 +129,22 @@
     }
     
     [dayScrollView setContentSize:CGSizeMake((dayContentWidth * [components day]) + (monthContentWidth * monthNumber), contentView.frame.size.height)];
+}
+
+#pragma mark - set Calendar Default Values
+
+- (void)setCalendarDefaultValues
+{
+    if (self.fixedMonthLabelWidth==0) {             self.fixedMonthLabelWidth = 45;}
+    if (self.monthTextColor == nil)                 {self.monthTextColor = UIColorFromRGB(0xCCCCCC);}
+    if (self.monthBGColor == nil)                   {self.monthBGColor = UIColorFromRGB(0xe54848);}
+    if (self.dayNameTextColor == nil)               {self.dayNameTextColor = UIColorFromRGB(0x626262);}
+    if (self.dayNumberTextColor == nil)             {self.dayNumberTextColor = UIColorFromRGB(0x232323);}
+    if (self.dayScrollBGColor == nil)               {self.dayScrollBGColor = UIColorFromRGB(0xCCCCCC);}
+    if (self.dayNameSelectedTextColor == nil)       {self.dayNameSelectedTextColor = UIColorFromRGB(0xCCCCCC);}
+    if (self.dayNumberSelectedTextColor == nil)     {self.dayNumberSelectedTextColor = UIColorFromRGB(0xCCCCCC);}
+    if (self.daySelectedBGColor == nil)             {self.daySelectedBGColor = UIColorFromRGB(0xe54848);}
+    if (self.languageLocale == nil) { dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:[[NSLocale currentLocale] localeIdentifier]]; } else { dateFormatter.locale = self.languageLocale;}
 }
 
 #pragma mark - render Month

@@ -42,20 +42,11 @@
     [offsetComponents setMonth:3];
     NSDate *nextDate2 = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
-    //First Example with English Language
+    //First Basic Example with English Language
     calendarExample01 = [[UltraWeekCalendar alloc] initWithFrame:CGRectMake(0, labelTest.frame.origin.y+labelTest.frame.size.height+10, self.view.frame.size.width, 55)];
     calendarExample01.delegate = self;
     calendarExample01.fixedMonthLabelWidth = 80;
     calendarExample01.languageLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    calendarExample01.backgroundColor = UIColorFromRGB(0xFFFFFF);
-    calendarExample01.monthTextColor = UIColorFromRGB(0xCCCCCC);
-    calendarExample01.monthBGColor = UIColorFromRGB(0xe54848);
-    calendarExample01.dayNameTextColor = UIColorFromRGB(0x626262);
-    calendarExample01.dayNumberTextColor = UIColorFromRGB(0x232323);
-    calendarExample01.dayScrollBGColor = UIColorFromRGB(0xCCCCCC);
-    calendarExample01.dayNameSelectedTextColor = UIColorFromRGB(0xCCCCCC);
-    calendarExample01.dayNumberSelectedTextColor = UIColorFromRGB(0xCCCCCC);
-    calendarExample01.daySelectedBGColor = UIColorFromRGB(0xe54848);
     calendarExample01.startDate = today;
     calendarExample01.endDate = nextDate;
     [self.view addSubview:calendarExample01];
