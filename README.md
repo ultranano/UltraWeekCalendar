@@ -86,6 +86,8 @@ calendar.daySelectedBGColor = UIColorFromRGB(0x7baecb);
 ## Author
 
 Andrea Baldon, ultranano@hotmail.com
+Mobile Supervisor - iOS Senior Developer at Musement
+LinkedIn https://www.linkedin.com/in/baldonandrea/
 
 ## Contributing
 
