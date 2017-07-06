@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UltraWeekCalendar'
-  s.version          = '0.1.1'
-  s.summary          = 'UltraWeekCalendar - Clean UI to select day through weeks'
+  s.version          = '0.1.2'
+  s.summary          = 'A clean and compact UI to select days through weeks'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?

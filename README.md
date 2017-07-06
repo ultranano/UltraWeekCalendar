@@ -5,12 +5,12 @@
 [![License](https://img.shields.io/cocoapods/l/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 [![Platform](https://img.shields.io/cocoapods/p/UltraWeekCalendar.svg?style=flat)](http://cocoapods.org/pods/UltraWeekCalendar)
 
-UltraWeekCalendar - Clean UI to select day through weeks
+A clean and compact UI to select days through weeks
 
 <p align="center">
-<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_1.png" alt="Screenshot 01"/>
+<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_1.png" alt="Screenshot 01"/ width=200>
 <br>
-<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_2.png" alt="Screenshot 02"/>
+<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_2.png" alt="Screenshot 02"/ width=200>
 </p>
 
 ## Features:
