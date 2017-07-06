@@ -17,7 +17,9 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar. The result of this it's UltraWeekCalendar! This is my first pods. Please feel Free to contribute and give me any feedbacks! DESC
+  s.description      = <<-DESC
+I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar. The result of this it's UltraWeekCalendar! This is my first pods. Please feel Free to contribute and give me any feedbacks!
+DESC
   s.homepage         = 'https://github.com/ultranano/UltraWeekCalendar'
   s.screenshots      = 'www.ultranano.net/screenshots_1.png', 'www.ultranano.net/screenshots_2.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
