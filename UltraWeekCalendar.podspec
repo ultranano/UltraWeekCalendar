@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC I need a clean UI for one of my apps to visualize a full customizable UI with week Calendar. The result of this it's UltraWeekCalendar! This is my first pods. Please feel Free to contribute and give me any feedbacks! DESC
   s.homepage         = 'https://github.com/ultranano/UltraWeekCalendar'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.screenshots      = 'www.ultranano.net/screenshots_1.png', 'www.ultranano.net/screenshots_2.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Andrea Baldon' => 'ultranano@hotmail.com' }
   s.source           = { :git => 'https://github.com/ultranano/UltraWeekCalendar.git', :tag => s.version.to_s }
