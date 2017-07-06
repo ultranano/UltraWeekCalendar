@@ -8,9 +8,7 @@
 A clean and compact UI to select days through weeks
 
 <p align="center">
-<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_1.png" alt="Screenshot 01"/ width=200>
-<br>
-<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_2.png" alt="Screenshot 02"/ width=200>
+<img src="http://www.ultranano.net/ultraweekcalendar/screenshots_1.png" alt="Screenshot 01"/>
 </p>
 
 ## Features:
