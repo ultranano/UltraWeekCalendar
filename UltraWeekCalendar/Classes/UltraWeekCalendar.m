@@ -88,7 +88,7 @@
     [fixedMonthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [fixedMonthLabel setFrame:CGRectMake(0, 0, self.fixedMonthLabelWidth, contentView.frame.size.height)];
     [monthView addSubview:fixedMonthLabel];
-    
+
     [breakPointMonthsName addObject:monthString];
     
     dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width+1, 0, self.frame.size.width-fixedMonthLabel.frame.size.width-1, contentView.frame.size.height)];
@@ -128,7 +128,11 @@
         
     }
     
-    [dayScrollView setContentSize:CGSizeMake((dayContentWidth * [components day]) + (monthContentWidth * monthNumber), contentView.frame.size.height)];
+    int totalWidth = (int)(dayContentWidth * [components day]) + (monthContentWidth * monthNumber);
+    [breakPointMonths addObject:[NSNumber numberWithInt:totalWidth]];
+    [breakPointMonthsName addObject:[breakPointMonthsName lastObject]];
+    
+    [dayScrollView setContentSize:CGSizeMake(totalWidth, contentView.frame.size.height)];
 }
 
 #pragma mark - set Calendar Default Values
@@ -157,9 +161,6 @@
     monthNamePosition = index*dayContentWidth+(monthNumber*monthContentWidth);
     [breakPointMonths addObject:[NSNumber numberWithInt:monthNamePosition]];
     [breakPointMonthsName addObject:currentMonthString];
-    
-    NSLog(@"breakPointMonths = %d", [[breakPointMonths lastObject] intValue]);
-    NSLog(@"breakPointMonthsName = %@", [breakPointMonthsName lastObject]);
     
     UILabel *monthLabel = [[UILabel alloc] initWithFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
     monthLabel.text = currentMonthString;
