@@ -230,20 +230,45 @@
     dateFormatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ssZ";
     NSString *selectedDayStr = [dateFormatter stringFromDate:printedDate];
     
-    [[self viewWithTag:selectedDay] setBackgroundColor:[UIColor clearColor]];
-    [[self viewWithTag:selectedDay+1000] setTextColor:self.dayNameTextColor];
-    [[self viewWithTag:selectedDay+2000] setTextColor:self.dayNumberTextColor];
-    
-    [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
-    [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
-    [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
-    
-    selectedDay = dayOffset+1000;
-    self.selectedDate = printedDate;
-    
-    [delegate dateButtonClicked];
-    
-    NSLog(@"selectedDay %@", selectedDayStr);
+    if ([selectedDayStr isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDayStr"]]) {
+        if (![[self viewWithTag:dayOffset+1000].backgroundColor isEqual:[UIColor clearColor]]) {
+            [[self viewWithTag:dayOffset+1000] setBackgroundColor:[UIColor clearColor]];
+            [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameTextColor];
+            [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberTextColor];
+            
+            selectedDayStr = nil;
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"selectedDayStr"];
+            [delegate dateButtonClicked];
+            NSLog(@"selectedDay %@", selectedDayStr);
+            
+        } else {
+            [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
+            [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
+            [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
+            
+            selectedDay = dayOffset+1000;
+            self.selectedDate = printedDate;
+            [[NSUserDefaults standardUserDefaults] setObject:selectedDayStr forKey:@"selectedDayStr"];
+            
+            [delegate dateButtonClicked];
+            NSLog(@"selectedDay %@", selectedDayStr);
+        }
+    } else {
+        [[self viewWithTag:selectedDay] setBackgroundColor:[UIColor clearColor]];
+        [[self viewWithTag:selectedDay+1000] setTextColor:self.dayNameTextColor];
+        [[self viewWithTag:selectedDay+2000] setTextColor:self.dayNumberTextColor];
+        
+        [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
+        [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
+        [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
+        
+        selectedDay = dayOffset+1000;
+        self.selectedDate = printedDate;
+        [[NSUserDefaults standardUserDefaults] setObject:selectedDayStr forKey:@"selectedDayStr"];
+        
+        [delegate dateButtonClicked];
+        NSLog(@"selectedDay %@", selectedDayStr);
+    }
 }
 
 #pragma mark - UIScrollView delegates
