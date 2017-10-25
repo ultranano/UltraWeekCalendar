@@ -237,6 +237,7 @@
             [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberTextColor];
             
             selectedDayStr = nil;
+            self.selectedDate = nil;
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"selectedDayStr"];
             [delegate dateButtonClicked];
             NSLog(@"selectedDay %@", selectedDayStr);
