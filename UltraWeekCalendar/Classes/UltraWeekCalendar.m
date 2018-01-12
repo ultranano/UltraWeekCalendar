@@ -20,7 +20,6 @@
     @private UILabel *fixedMonthLabel;
     @private NSMutableArray *breakPointMonths;
     @private NSMutableArray *breakPointMonthsName;
-    @private UIScrollView *dayScrollView;
     @private UILabel *dayNameLbl;
     @private UILabel *dayNumberLbl;
     @private NSDate *printedDate;
@@ -91,16 +90,16 @@
 
     [breakPointMonthsName addObject:monthString];
     
-    dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width+1, 0, self.frame.size.width-fixedMonthLabel.frame.size.width-1, contentView.frame.size.height)];
-    [dayScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    [dayScrollView setDelegate:self];
-    [dayScrollView setShowsHorizontalScrollIndicator:FALSE];
-    [dayScrollView setShowsVerticalScrollIndicator:FALSE];
-    [dayScrollView setBackgroundColor:self.dayScrollBGColor];
-    [contentView addSubview:dayScrollView];
+    self.dayScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(fixedMonthLabel.frame.size.width+1, 0, self.frame.size.width-fixedMonthLabel.frame.size.width-1, contentView.frame.size.height)];
+    [self.dayScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [self.dayScrollView setDelegate:self];
+    [self.dayScrollView setShowsHorizontalScrollIndicator:FALSE];
+    [self.dayScrollView setShowsVerticalScrollIndicator:FALSE];
+    [self.dayScrollView setBackgroundColor:self.dayScrollBGColor];
+    [contentView addSubview:self.dayScrollView];
     
     monthContentWidth = fixedMonthLabel.frame.size.width;
-    dayContentWidth = (dayScrollView.frame.size.width/7)+3;
+    dayContentWidth = (self.dayScrollView.frame.size.width/7)+3;
     previousMonth = (int)[[gregorianCalendar components:NSCalendarUnitMonth fromDate:self.startDate] month];
     monthNumber = 0;
     
@@ -132,7 +131,7 @@
     [breakPointMonths addObject:[NSNumber numberWithInt:totalWidth]];
     [breakPointMonthsName addObject:[breakPointMonthsName lastObject]];
     
-    [dayScrollView setContentSize:CGSizeMake(totalWidth, contentView.frame.size.height)];
+    [self.dayScrollView setContentSize:CGSizeMake(totalWidth, contentView.frame.size.height)];
 }
 
 #pragma mark - set Calendar Default Values
@@ -170,7 +169,7 @@
     [monthLabel setTextColor:self.monthTextColor];
     [monthLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2)];
     [monthLabel setFrame:CGRectMake(monthNamePosition, 0, monthContentWidth, contentView.frame.size.height)];
-    [dayScrollView addSubview:monthLabel];
+    [self.dayScrollView addSubview:monthLabel];
     
     previousMonth = currentMonth;
     monthNumber++;
@@ -182,7 +181,7 @@
 {
     dayContentView = [[UIView alloc] initWithFrame:CGRectMake(index*dayContentWidth+(monthNumber*monthContentWidth), 0, dayContentWidth, contentView.frame.size.height)];
     dayContentView.tag = index+1000;
-    [dayScrollView addSubview:dayContentView];
+    [self.dayScrollView addSubview:dayContentView];
     
     [dateFormatter setDateFormat:@"eee"];
     NSString *dayNameString = [dateFormatter stringFromDate:currentDate];
@@ -268,6 +267,56 @@
         [[NSUserDefaults standardUserDefaults] setObject:selectedDayStr forKey:@"selectedDayStr"];
         
         [delegate dateButtonClicked];
+        NSLog(@"selectedDay %@", selectedDayStr);
+    }
+}
+
+#pragma mark - selected Date
+
+- (void)selectedDate:(int)dayOffset
+{
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setDay:dayOffset];
+    printedDate = [gregorianCalendar dateByAddingComponents:offsetComponents toDate:self.startDate options:0];
+    dateFormatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ssZ";
+    NSString *selectedDayStr = [dateFormatter stringFromDate:printedDate];
+    
+    if ([selectedDayStr isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"selectedDayStr"]]) {
+        if (![[self viewWithTag:dayOffset+1000].backgroundColor isEqual:[UIColor clearColor]]) {
+            [[self viewWithTag:dayOffset+1000] setBackgroundColor:[UIColor clearColor]];
+            [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameTextColor];
+            [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberTextColor];
+            
+            selectedDayStr = nil;
+            self.selectedDate = nil;
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"selectedDayStr"];
+            [delegate dateButtonClicked];
+            NSLog(@"selectedDay %@", selectedDayStr);
+            
+        } else {
+            [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
+            [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
+            [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
+            
+            selectedDay = dayOffset+1000;
+            self.selectedDate = printedDate;
+            [[NSUserDefaults standardUserDefaults] setObject:selectedDayStr forKey:@"selectedDayStr"];
+            
+            NSLog(@"selectedDay %@", selectedDayStr);
+        }
+    } else {
+        [[self viewWithTag:selectedDay] setBackgroundColor:[UIColor clearColor]];
+        [[self viewWithTag:selectedDay+1000] setTextColor:self.dayNameTextColor];
+        [[self viewWithTag:selectedDay+2000] setTextColor:self.dayNumberTextColor];
+        
+        [[self viewWithTag:dayOffset+1000] setBackgroundColor:self.daySelectedBGColor];
+        [[self viewWithTag:dayOffset+2000] setTextColor:self.dayNameSelectedTextColor];
+        [[self viewWithTag:dayOffset+3000] setTextColor:self.dayNumberSelectedTextColor];
+        
+        selectedDay = dayOffset+1000;
+        self.selectedDate = printedDate;
+        [[NSUserDefaults standardUserDefaults] setObject:selectedDayStr forKey:@"selectedDayStr"];
+        
         NSLog(@"selectedDay %@", selectedDayStr);
     }
 }

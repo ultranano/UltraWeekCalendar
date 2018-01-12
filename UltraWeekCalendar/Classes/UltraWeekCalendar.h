@@ -18,11 +18,14 @@
     id<UltraWeekCalendarDelegate> delegate;
 }
 
+- (void)selectedDate:(int)dayOffset;
+
 @property (strong, nonatomic) id<UltraWeekCalendarDelegate> delegate;
 
 //Init Params
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+@property (nonatomic, strong) UIScrollView *dayScrollView;
 
 //Optional Params
 @property (nonatomic, strong) NSLocale *languageLocale;
